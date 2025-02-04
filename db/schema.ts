@@ -7,8 +7,7 @@ export const pets = pgTable('pets', {
   type: text('type').notNull(),
   description: text('description'),
   imageUrl: text('image_url'),
-  createdAt: timestamp('created_at').defaultNow(),
-  addedByEmail: text('added_by_email').notNull(),
+
 });
 
 export type Pet = typeof pets.$inferSelect;
