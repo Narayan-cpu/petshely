@@ -1,0 +1,1 @@
+ALTER TABLE "helpline" ADD COLUMN "name" varchar(100) NOT NULL;

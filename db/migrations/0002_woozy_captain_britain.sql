@@ -1,0 +1,1 @@
+ALTER TABLE "pets" ADD COLUMN "added_by_email" text NOT NULL;
