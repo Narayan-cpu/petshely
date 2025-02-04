@@ -1,10 +1,13 @@
-// app/adoption/[id]/page.tsx
 import { db } from '@/db/client';
 import { pets } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import Image from 'next/image';
 
-export default async function AdoptionPage({ params }: { params: { id: string } }) {
+interface AdoptionPageProps {
+  params: { id: string };
+}
+
+export default async function AdoptionPage({ params }: AdoptionPageProps) {
   const pet = await db.select().from(pets).where(eq(pets.id, Number(params.id)));
 
   if (!pet[0]) {
@@ -14,14 +17,14 @@ export default async function AdoptionPage({ params }: { params: { id: string } 
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-8 text-center">Adoption Details</h1>
-      <div className="max-w-2xl mx-auto  shadow-lg rounded-lg p-6">
+      <div className="max-w-2xl mx-auto shadow-lg rounded-lg p-6">
         <div className="relative w-full h-96">
           {pet[0].imageUrl ? (
             <Image
               src={pet[0].imageUrl}
               alt={pet[0].name}
-              width={600} // Fixed width
-              height={400} // Fixed height
+              width={600}
+              height={400}
               className="object-cover rounded-t-lg"
             />
           ) : (
@@ -35,7 +38,6 @@ export default async function AdoptionPage({ params }: { params: { id: string } 
           <p className="text-gray-600">{pet[0].type}</p>
           <p className="mt-4 text-gray-700">{pet[0].description}</p>
         </div>
-        
       </div>
     </div>
   );
