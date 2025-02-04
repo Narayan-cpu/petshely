@@ -8,9 +8,14 @@ interface AdoptionPageProps {
 }
 
 export default async function AdoptionPage({ params }: AdoptionPageProps) {
-  const pet = await db.select().from(pets).where(eq(pets.id, Number(params.id)));
+  const petId = parseInt(params.id, 10);
+  if (isNaN(petId)) {
+    return <div>Invalid pet ID</div>;
+  }
 
-  if (!pet[0]) {
+  const pet = await db.select().from(pets).where(eq(pets.id, petId)).then((res) => res[0] || null);
+
+  if (!pet) {
     return <div>Pet not found</div>;
   }
 
@@ -19,24 +24,22 @@ export default async function AdoptionPage({ params }: AdoptionPageProps) {
       <h1 className="text-3xl font-bold mb-8 text-center">Adoption Details</h1>
       <div className="max-w-2xl mx-auto shadow-lg rounded-lg p-6">
         <div className="relative w-full h-96">
-          {pet[0].imageUrl ? (
+          {pet.imageUrl ? (
             <Image
-              src={pet[0].imageUrl}
-              alt={pet[0].name}
-              width={600}
-              height={400}
-              className="object-cover rounded-t-lg"
+              src={pet.imageUrl}
+              alt={pet.name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-t-lg"
             />
           ) : (
-            <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-t-lg">
-              <span className="text-gray-500">No Image Available</span>
-            </div>
+            <div className="w-full h-full bg-gray-200 rounded-t-lg"></div>
           )}
         </div>
-        <div className="mt-6">
-          <h2 className="text-2xl font-bold">{pet[0].name}</h2>
-          <p className="text-gray-600">{pet[0].type}</p>
-          <p className="mt-4 text-gray-700">{pet[0].description}</p>
+        <div className="p-6">
+          <h2 className="text-2xl font-bold mb-4">{pet.name}</h2>
+          <p className="text-gray-700 mb-4">{pet.description}</p>
+          <p className="text-gray-700">Age: {pet.age}</p>
         </div>
       </div>
     </div>
