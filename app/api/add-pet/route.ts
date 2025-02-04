@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     }
 
     // Insert the pet into the database
-    await db.insert(pets).values({ name, type, description, imageUrl});
+    await db.insert(pets).values({ name, type, description, imageUrl });
 
     return NextResponse.json({ message: 'Pet added successfully!' }, { status: 200 });
   } catch (error) {
