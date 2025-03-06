@@ -6,7 +6,6 @@ export const pets = pgTable('pets', {
   name: text('name').notNull(),
   type: text('type').notNull(),
   description: text('description'),
-  imageUrl: text('image_url'),
 
 });
 

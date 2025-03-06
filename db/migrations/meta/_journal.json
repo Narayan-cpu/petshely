@@ -50,6 +50,13 @@
       "when": 1738647980816,
       "tag": "0006_mixed_doomsday",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1741271416852,
+      "tag": "0007_red_liz_osborn",
+      "breakpoints": true
     }
   ]
 }
