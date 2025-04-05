@@ -23,3 +23,7 @@ export const db = drizzle(neonClient, {
 
 // Export individual schemas if needed elsewhere
 export { blogs, donations, helpline, pets };
+
+// Alias exports for db
+export const db1 = db;
+export const db2 = db;
